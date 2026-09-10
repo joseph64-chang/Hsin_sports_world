@@ -104,6 +104,9 @@ export default function PingPongGame() {
     let frameId: number;
 
     function draw() {
+      // Re-narrow inside the closure: TS loses the outer `if (!ctx) return`
+      // guard for a hoisted function passed to requestAnimationFrame.
+      if (!ctx) return;
       const s = stateRef.current;
 
       if (s.running) {
