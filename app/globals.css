@@ -103,3 +103,38 @@ body {
     color: var(--brand);
   }
 }
+
+@keyframes hsw-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hsw-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hsw-modal-backdrop {
+  animation: hsw-fade-in 0.2s ease-out;
+}
+
+.hsw-modal-card {
+  animation: hsw-pop-in 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hsw-modal-backdrop,
+  .hsw-modal-card {
+    animation: none;
+  }
+}

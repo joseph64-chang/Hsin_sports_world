@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useVisitor } from "@/components/visitor/VisitorProvider";
 
 const NAV_LINKS = [
   { href: "/", label: "首頁" },
@@ -31,6 +32,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
 export default function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { name, openPrompt } = useVisitor();
 
   return (
     <header className="sticky top-0 z-50 bg-brand text-white">
@@ -39,6 +41,17 @@ export default function SiteHeader() {
         <Logo onClick={() => setOpen(false)} />
 
         <div className="flex items-center gap-3">
+          {name && (
+            <button
+              type="button"
+              onClick={openPrompt}
+              title="修改稱呼"
+              className="hidden items-center gap-1.5 text-sm font-medium text-white/85 transition-colors hover:text-white sm:inline-flex"
+            >
+              <span aria-hidden>👋</span>
+              嗨，{name}
+            </button>
+          )}
           <Link href="/table-tennis" className="btn-ghost-light hidden sm:inline-flex">
             開始探索
           </Link>
@@ -93,6 +106,18 @@ export default function SiteHeader() {
       {/* Mobile menu */}
       {open && (
         <nav className="flex flex-col border-t border-white/15 px-6 py-2 text-sm sm:hidden">
+          {name && (
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openPrompt();
+              }}
+              className="border-b border-white/10 py-3 text-left font-medium text-white/85"
+            >
+              👋 嗨，{name}（修改稱呼）
+            </button>
+          )}
           {NAV_LINKS.map((link) => {
             const active = isActive(pathname, link.href);
             return (

@@ -1,76 +1,39 @@
 "use client";
 
-import {
-  useState,
-  useSyncExternalStore,
-  type FormEvent,
-} from "react";
-
-const STORAGE_KEY = "hsw-visitor-name";
-
-// No external changes to subscribe to — the value only changes via this
-// component's own submit handler, which updates local state directly.
-const subscribe = () => () => {};
-
-function readStoredName() {
-  try {
-    return localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
+import { useVisitor } from "@/components/visitor/VisitorProvider";
 
 export default function WelcomeGreeting() {
-  // `null` on the server and during hydration, the real value afterwards —
-  // useSyncExternalStore keeps this hydration-safe without a setState-in-effect.
-  const storedName = useSyncExternalStore(
-    subscribe,
-    readStoredName,
-    () => null,
-  );
-  const [justSubmitted, setJustSubmitted] = useState<string | null>(null);
-  const [input, setInput] = useState("");
-
-  const name = justSubmitted ?? storedName;
-
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    const trimmed = input.trim();
-    if (!trimmed) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, trimmed);
-    } catch {}
-    setJustSubmitted(trimmed);
-  }
+  const { name, openPrompt } = useVisitor();
 
   if (name) {
     return (
-      <p className="inline-flex items-center gap-2 border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium tracking-wide text-accent">
-        嗨，{name}！歡迎回到 Hsin Sports World 👋
-      </p>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <span className="inline-flex items-center gap-2 border border-accent/30 bg-accent/10 px-4 py-2 font-medium tracking-wide text-accent">
+          嗨，{name}！很高興你回來 👋
+        </span>
+        <button
+          type="button"
+          onClick={openPrompt}
+          className="text-foreground/45 underline underline-offset-2 transition-colors hover:text-brand"
+        >
+          換個稱呼
+        </button>
+      </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap items-center gap-3">
-      <label htmlFor="visitor-name" className="text-sm text-foreground/55">
-        怎麼稱呼你？
-      </label>
-      <input
-        id="visitor-name"
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="輸入你的稱呼"
-        maxLength={20}
-        className="border border-line bg-background px-3 py-2 text-sm text-foreground placeholder:text-foreground/40 focus:border-brand focus:outline-none"
-      />
+    <div className="flex flex-wrap items-center gap-3 text-sm">
+      <span className="text-foreground/60">
+        還沒設定稱呼？設定後每次回來都會跟你打聲招呼。
+      </span>
       <button
-        type="submit"
-        className="border border-line px-4 py-2 text-sm font-medium tracking-wide text-foreground transition-colors hover:border-brand hover:text-brand"
+        type="button"
+        onClick={openPrompt}
+        className="border border-line px-4 py-2 font-medium tracking-wide text-foreground transition-colors hover:border-brand hover:text-brand"
       >
-        送出
+        現在設定
       </button>
-    </form>
+    </div>
   );
 }
