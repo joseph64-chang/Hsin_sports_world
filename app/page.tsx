@@ -18,7 +18,7 @@ const SPORTS: Sport[] = [
     index: "01",
     name: "桌球",
     kicker: "TABLE TENNIS",
-    desc: "從百年歷史、規則技術到 WTT 世界排名與球員介紹，還有一顆能親手打的互動小遊戲。",
+    desc: "從百年歷史、規則技術到 WTT 世界排名、球員介紹、各國球風與訓練方法。",
     href: "/table-tennis",
     ready: true,
     image: "/images/unsplash-03-table-tennis-player-serving.jpg",

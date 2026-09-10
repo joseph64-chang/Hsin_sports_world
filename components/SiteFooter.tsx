@@ -11,7 +11,7 @@ const TABLE_TENNIS_LINKS = [
   { href: "/table-tennis#rankings", label: "WTT 世界排名" },
   { href: "/table-tennis#players", label: "球員介紹" },
   { href: "/table-tennis#training", label: "桌球訓練" },
-  { href: "/table-tennis#game", label: "桌球小遊戲" },
+  { href: "/table-tennis#styles", label: "各國球風" },
 ];
 
 const SWIMMING_LINKS = [

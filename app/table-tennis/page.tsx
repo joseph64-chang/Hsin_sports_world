@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Hero from "@/components/Hero";
-import PingPongGame from "./PingPongGame";
 import { Reveal } from "@/components/ScrollEffects";
 import {
   HERO_PHOTO,
@@ -13,7 +12,7 @@ import {
 
 export const metadata: Metadata = {
   title: "桌球世界 | Hsin Sports World",
-  description: "桌球歷史、賽事日程、技術、器材、WTT世界排名、球員介紹、各國球風、訓練方法與互動小遊戲。",
+  description: "桌球歷史、賽事日程、技術、器材、WTT世界排名、球員介紹、各國球風與訓練方法。",
 };
 
 const NAV_ITEMS = [
@@ -26,7 +25,6 @@ const NAV_ITEMS = [
   { id: "players", label: "球員介紹" },
   { id: "styles", label: "各國球風" },
   { id: "training", label: "訓練" },
-  { id: "game", label: "小遊戲" },
 ];
 
 const HISTORY = [
@@ -395,7 +393,7 @@ export default function TableTennisPage() {
       <Hero
         kicker="TABLE TENNIS"
         title="桌球世界"
-        description="從百年歷史、賽事日程、技術動作、器材選擇，到 WTT 世界排名、球員介紹、各國球風與訓練方法，一次認識桌球這項「小球大智慧」的運動，最後別忘了挑戰文末的桌球小遊戲！"
+        description="從百年歷史、賽事日程、技術動作、器材選擇，到 WTT 世界排名、球員介紹、各國球風與訓練方法，一次認識桌球這項「小球大智慧」的運動。"
         image={HERO_PHOTO}
         imageAlt="2016 里約奧運，選手擊球瞬間特寫"
         meta={["1926 年成立 ITTF", "奧運正式項目", "WTT 職業巡迴賽"]}
@@ -782,20 +780,6 @@ export default function TableTennisPage() {
             <p className="absolute bottom-3 left-4 text-xs font-medium text-paper">
               {TRAINING_PHOTO.caption}
             </p>
-          </Reveal>
-        </section>
-
-        {/* Game */}
-        <section className="flex flex-col gap-10">
-          <Reveal>
-            <SectionIntro id="game" index="09" kicker="PLAY" title="桌球小遊戲" />
-            <p className="mt-5 text-foreground/70">
-              用滑鼠、觸控拖曳或鍵盤 ↑↓／W S
-              控制左側球拍，體驗簡化版桌球對戰，看看你能不能先拿下 11 分！
-            </p>
-          </Reveal>
-          <Reveal className="bg-ink p-6">
-            <PingPongGame />
           </Reveal>
         </section>
       </main>
